@@ -1,0 +1,23 @@
+
+■tagの確認
+$git tag
+v0.0.1
+
+■ｔａｇの作成
+$git tag 1.0.2
+
+■リモートへpush
+$git push origin 1.0.1
+
+■リモートからtag削除
+git push --delete origin tag 1.0.1
+
+■ローカルからtag削除
+$git tag -d v0.0.1
+Deleted tag 'v0.0.1' (was a43c014)
+
+■リモートタグの表示
+$git ls-remote --tags
+From git@github.com:ytakenouchi/test003.git
+2f74b5a3365ce4de29eb288f621afd255f1d8fde        refs/tags/1.0.2
+a43c014669eb79a7662f6d65217021770a008b75        refs/tags/v0.0.1
