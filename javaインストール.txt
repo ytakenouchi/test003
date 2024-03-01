@@ -1,0 +1,76 @@
+OracleのJava SE Development Kit 17のダウンロードページにアクセスします。
+https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+"Linux x64"の項目から、"jdk-17.0.7_linux-x64_bin.tar.gz"ファイルをlinux 環境にダウンロードするコマンドを教えて
+
+
+wget https://download.oracle.com/otn-pub/java/jdk/17.0.7+8/jdk-17.0.7_linux-x64_bin.tar.gz
+
+wget -v https://download.oracle.com/otn-pub/java/jdk/17.0.7+8/jdk-17.0.7_linux-x64_bin.tar.gz
+
+
+tar -xvzf jdk-17.0.7_linux-x64_bin.tar.gz
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+wget https://download.oracle.com/otn-pub/java/jdk/17.0.7+8/jdk-17.0.7_linux-x64_bin.tar.gz
+
+tar -xvzf jdk-17.0.7_linux-x64_bin.tar.gz
+
+
+sudo mv jdk-17.0.7 /usr/lib/jvm
+
+echo 'export JAVA_HOME=/usr/lib/jvm/jdk-17.0.7' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+
+source ~/.bashrc
+
+java -version
+
+
+openjdk version "17.0.7" 2023-03-14
+OpenJDK Runtime Environment (build 17.0.7+8-Ubuntu-22.04)
+OpenJDK 64-Bit Server VM (build 17.0.7+8-Ubuntu-22.04, mixed mode, sharing)
+
+
+参考情報
+
+Java SE Development Kit 17のダウンロード: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+Java SE Development Kit 17のインストール: https://docs.oracle.com/en/java/javase/17/install/
+
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+【２】
+
+curl -L https://download.oracle.com/otn-pub/java/jdk/17.0.7+8/jdk-17.0.7_linux-x64_bin.tar.gz -o jdk-17.0.7_linux-x64_bin.tar.gz
+tar -xvzf jdk-17.0.7_linux-x64_bin.tar.gz
+
+sudo mv jdk-17.0.7 /usr/lib/jvm
+
+echo 'export JAVA_HOME=/usr/lib/jvm/jdk-17.0.7' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+
+source ~/.bashrc
+
+
+java -version
+
+
+【２】Chat-GPT
+curl -L -b "oraclelicense=a" -O https://download.oracle.com/otn-pub/java/jdk/17.0.7+8/jdk-17.0.7_linux-x64_bin.tar.gz
+
+
+
+tar -xzf jdk-17.0.7_linux-x64_bin.tar.gz
+
+sudo mv jdk-17.0.7 /usr/local/
+
+echo 'export JAVA_HOME=/usr/local/jdk-17.0.7' >> ~/.bashrc
+echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+
+source ~/.bashrc
+
+java -version
+
+
