@@ -1,0 +1,59 @@
+Tomcat 10の手動インストール手順:
+Javaのインストール:
+
+bash
+Copy code
+sudo yum install java
+Tomcatのダウンロード:
+
+bash
+Copy code
+wget https://downloads.apache.org/tomcat/tomcat-10/v10.0.14/bin/apache-tomcat-10.0.14.tar.gz
+Tomcatの解凍:
+
+bash
+Copy code
+tar -xvf apache-tomcat-10.0.14.tar.gz
+Tomcatの移動とリネーム:
+
+bash
+Copy code
+sudo mv apache-tomcat-10.0.14 /opt/tomcat
+環境変数の設定:
+
+bash
+Copy code
+echo 'export CATALINA_HOME="/opt/tomcat"' >> ~/.bashrc
+source ~/.bashrc
+Tomcatサービスの作成:
+
+bash
+Copy code
+sudo nano /etc/systemd/system/tomcat.service
+ファイルに以下を追加:
+
+ini
+Copy code
+[Unit]
+Description=Tomcat
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+User=<your_username>
+Group=<your_groupname>
+
+[Install]
+WantedBy=multi-user.target
+<your_username> と <your_groupname> を実際のユーザー名とグループ名に置き換えてください。
+
+Tomcatサービスの有効化と起動:
+
+bash
+Copy code
+sudo systemctl daemon-reload
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
+これでTomcatがインストールされ、サービスとして動作するようになります。Webブラウザで http://<your_server_ip>:8080 にアクセスし、Tomcatのウェルカムページが表示されることを確認してください。
