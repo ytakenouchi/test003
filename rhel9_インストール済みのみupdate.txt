@@ -1,0 +1,7 @@
+dnf list --installed | awk '{print $1}' | grep -v '^Installed' > installed_packages.txt
+
+dnf distro-sync $(dnf list --installed | awk '{print $1}' | grep -v '^Installed')
+
+
+dnf distro-sync $(dnf list --installed | awk '!/^Installed/ && $1 != "kernel" {print $1}')
+
