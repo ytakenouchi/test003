@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::LanguageExtensions'
+Parameters:
+  paramBucketPrefixList:
+    Description: Bucket Name Prefix
+    Type: CommaDelimitedList
+    Default: 's3testbbb01000,s3testbbb02000'
+Resources:
+  Fn::ForEach::BucketPrefix1st:
+    - BucketID
+    - !Ref paramBucketPrefixList
+    - ${BucketID}:
+        Type: 'AWS::S3::Bucket'
+        Properties:
+          #BucketName: !Sub ${BucketID}-${AWS::AccountId}
+          BucketName: !Join ["bbb", !Split ["-", BucketID]]

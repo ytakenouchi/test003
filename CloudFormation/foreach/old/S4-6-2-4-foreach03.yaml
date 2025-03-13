@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::LanguageExtensions'
+Parameters:
+  paramBucketPrefixList:
+    Description: Bucket Name Prefix
+    Type: CommaDelimitedList
+    Default: 's3test101,s3test202,s3test303'
+Resources:
+  Fn::ForEach::BucketPrefix1st:
+    - BucketPrefix
+    - !Ref paramBucketPrefixList
+    - !Sub
+      - '${SanitizedPrefix}Bucket':
+          Type: 'AWS::S3::Bucket'
+          Properties:
+            BucketName: !Sub '${SanitizedBucketName}-${AWS::AccountId}-${AWS::Region}'
+            LifecycleConfiguration:
+              Rules:
+                - Id: ExampleGlacierRule
+                  Status: Enabled
+                  Expiration:
+                    Days: 365
+                  Transitions:
+                    - StorageClass: GLACIER
+                      TransitionInDays: 30
+      - SanitizedPrefix: !Join ["aaa", !Split ["-", BucketPrefix]]

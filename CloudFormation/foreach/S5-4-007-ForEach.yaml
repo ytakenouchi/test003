@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::LanguageExtensions'
+Parameters:
+  paramBucketPrefixList:
+    Description: Bucket Name Prefix
+    Type: CommaDelimitedList
+    Default: 's3test01fff,s3test02fff'
+
+Resources:
+  Fn::ForEach::BucketPrefix1st:
+    - BucketID
+    - !Ref paramBucketPrefixList
+    - ${BucketID}:
+        Type: 'AWS::S3::Bucket'
+        Properties:
+          BucketName: !Sub
+            - "${CleanBucketID}${Index}"  # A clean BucketID without hyphens
+            - CleanBucketID: !Ref BucketID  # Perform the cleaning outside this template
+              Index: !Select [0, !Ref "AWS::NumberOfResources"]

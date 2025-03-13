@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::LanguageExtensions'
+Parameters:
+  paramBucketPrefixList:
+    Description: Bucket Name Prefix
+    Type: CommaDelimitedList
+    Default: 's3test-01'
+    #Default: 's3test-01,s3test-02,s3test-03'
+
+Resources:
+  Fn::ForEach::BucketPrefix1st:
+    - BucketPrefix  # BucketPrefixをBucketPrefixWordに変更
+    - !Ref paramBucketPrefixList  # paramBucketPrefixListの各要素がここで処理されます
+    - ${SanitizedBucketPrefix}:  # ここでSanitizedBucketPrefixを論理IDとして使用
+        Type: 'AWS::S3::Bucket'
+        Properties:
+          BucketName: !Sub '${BucketPrefix}-${AWS::AccountId}-${AWS::Region}'  # バケット名はそのまま使用
+          LifecycleConfiguration:
+            Rules:
+              - Id: ExampleGlacierRule
+                Expiration:
+                  Days: 365
+                Transitions:
+                  - StorageClass: GLACIER
+                    TransitionInDays: 30
+    - SanitizedBucketPrefix: !Join ["", !Split ["-", BucketPrefixWord]]  # ハイフンを取り除いて論理IDを作成

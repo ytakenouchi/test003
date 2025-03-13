@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::LanguageExtensions'
+Parameters:
+  paramBucketPrefixList:
+    Description: Bucket Name Prefix
+    Type: CommaDelimitedList
+    Default: 's3testbbb01001,s3testbbb02001'
+Resources:
+  Fn::ForEach::BucketPrefix1st:
+    - BucketID
+    - !Ref paramBucketPrefixList
+    - ${BucketID}:
+        Type: 'AWS::S3::Bucket'
+        Properties:
+          BucketName: !Sub
+            - "bbb${ProcessedBucketID}"
+            - ProcessedBucketID: !Select [1, !Split ["fff", !Ref BucketID]]
